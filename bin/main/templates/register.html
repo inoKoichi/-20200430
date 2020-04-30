@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div class="container login-box-wrap">
+      <!--新規登録フォーム-->
+      <div class="regist">
+        <form
+          class="regist"
+          th:action="@{/new_register}"
+          th:object="${registerForm}"
+          method="post"
+        >
+          <input type="hidden" value="2" />
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              name="userName"
+              autofocus="autofocus"
+              placeholder="ユーザー名"
+              required="required"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              name="loginId"
+              autofocus="autofocus"
+              placeholder="ログインID"
+              required="required"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              name="loginPass"
+              class="form-control"
+              id="login_pass"
+              placeholder="パスワード"
+              required="required"
+            />
+          </div>
+          <button id="user_regist" class="user_regist">新規登録</button>
+        </form>
+      </div>
+    </div>
+    <!--以下JavaScript-->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        //登録ボタンをおしたとき
+        document.getElementById("user_regist").onclick = function() {
+          $(".regist").submit();
+        };
+      });
+    </script>
+  </body>
+</html>

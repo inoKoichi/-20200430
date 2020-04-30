@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <!--データ一覧-->
+    <div id="formWrapper">
+      <div class="flex">
+        <div class="circle-menu blue">リスト</div>
+        <div class="circle-menu purple">診断</div>
+      </div>
+
+      <div id="choice_first">
+        <div
+          class="choice_list first"
+          th:id="*{choices.questionId}"
+          th:each="choices : ${choices}"
+        >
+          <span th:text="*{choices.choices}"></span>
+        </div>
+      </div>
+
+      <div id="choice_second">
+        <div
+          class="choice_list second"
+          th:id="*{choices2.questionId}"
+          th:each="choices2 : ${choices2}"
+        >
+          <span th:text="*{choices2.choices}"></span>
+        </div>
+      </div>
+      <div id="choice_third">
+        <div
+          class="choice_list_third"
+          th:id="*{choices3.questionId}"
+          th:each="choices3 : ${choices3}"
+        >
+          <span th:text="*{choices3.choices}"></span>
+        </div>
+      </div>
+    </div>
+    <!--以下JavaScript-->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $("#choice_second").hide();
+        $("#choice_third").hide();
+
+        $("#choice_first").click(function() {
+          $("#choice_second").fadeIn();
+          $("#choice_first").fadeOut();
+        });
+
+        $("#choice_second").click(function() {
+          $("#choice_third").fadeIn();
+          $("#choice_second").fadeOut();
+        });
+
+        $(".choice_list_third").click(function() {
+          var id = $(this).attr("id");
+          location.href = "/selected?id=" + id;
+        });
+      });
+    </script>
+  </body>
+</html>

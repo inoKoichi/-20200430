@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <!--管理者画面-->
+    <th:block th:include="/header :: common-header"></th:block>
+
+    <!--登録フォーム-->
+    <div id="formWrapper">
+      <div class="logo"></div>
+      <div id="form">
+        <form class="data_form" th:action="@{/q_regist}" th:object="${qForm}">
+          <input type="hidden" th:field="*{questionId}" />
+          <div class="form-item">
+            <p class="formLabel">choices</p>
+            <input type="text" th:field="*{choices}" class="form-style" />
+          </div>
+
+          <button id="btn_return" class="btn_for_admin" type="button">
+            RETURN
+          </button>
+          <button id="btn_submit" class="btn_for_admin" type="button">
+            SUBMIT
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!--以下JavaScript-->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $("#btn_return").click(function() {
+          location.href = "/admin";
+        });
+
+        $("#btn_submit").click(function() {
+          $(".data_form").submit();
+        });
+
+        $(document).ready(function() {
+          var formInputs = $('input[type="text"]');
+          formInputs.focus(function() {
+            $(this)
+              .parent()
+              .children("p.formLabel")
+              .addClass("formTop");
+            $("div#formWrapper").addClass("darken-bg");
+            $("div.logo").addClass("logo-active");
+          });
+          formInputs.focusout(function() {
+            if ($.trim($(this).val()).length == 0) {
+              $(this)
+                .parent()
+                .children("p.formLabel")
+                .removeClass("formTop");
+            }
+            $("div#formWrapper").removeClass("darken-bg");
+            $("div.logo").removeClass("logo-active");
+          });
+          $("p.formLabel").click(function() {
+            $(this)
+              .parent()
+              .children(".form-style")
+              .focus();
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
