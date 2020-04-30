@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <!--データ一覧-->
+    <div id="formWrapper">
+      <div class="flex">
+        <div class="circle-menu blue">リスト</div>
+        <div class="circle-menu purple" id="random">診断</div>
+      </div>
+      <div class="character">
+        <table class="character_table" th:each="character : ${characterList}">
+          <thead>
+            <caption
+              class="character_name"
+              th:text="${character.characterName}"
+            ></caption>
+          </thead>
+
+          <tbody>
+            <span class="character_id" th:id="${character.characterId}"></span>
+            <tr class="item">
+              <th class="paragraph">誕生日</th>
+              <td th:text="${character.birthday}"></td>
+            </tr>
+
+            <tr class="item">
+              <th class="paragraph">国籍</th>
+              <td th:text="${character.nationality}"></td>
+            </tr>
+            <tr class="item">
+              <th class="paragraph">所属</th>
+              <td class="group" th:text="${character.memberOf}"></td>
+            </tr>
+            <tr class="item">
+              <th class="paragraph" id="ability">イノセンス</th>
+              <td th:text="${character.weapon}"></td>
+            </tr>
+            <tr class="item">
+              <th class="paragraph">身長</th>
+              <td th:text="|${character.height}cm|"></td>
+            </tr>
+            <tr class="item">
+              <th class="paragraph">好きなもの</th>
+              <td th:text="${character.fav}"></td>
+            </tr>
+            <tr class="item">
+              <th class="paragraph">嫌いなもの</th>
+              <td th:text="${character.dislike}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!--以下JavaScript-->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript">
+
+    //groupの表示処理
+    
+      $(function() {
+        $(".group").each(function() {
+          let group = $(this).text();
+          const noah = "ノア";
+          const memory = "ノアメモリー";
+          const blackOrder = "教団員";
+          const cult = "役職";
+          if (group == noah) {
+            $(this)
+              .parent()
+              .parent()
+              .find("#ability")
+              .text(memory.replace());
+          } else if (group == blackOrder) {
+            $(this)
+              .parent()
+              .parent()
+              .find("#ability")
+              .text(cult.replace());
+          }
+        });
+
+        $("#random").click(function() {
+          location.href = "/random";
+        });
+      });
+    </script>
+  </body>
+</html>

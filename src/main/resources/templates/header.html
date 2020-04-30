@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <title>header</title>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <th:block th:fragment="common-header">
+      <div id="ad_container">
+        <div class="wrap" sec:authorize="hasRole('ROLE_ADMIN')">
+          <span class="decor"></span>
+          <nav>
+            <ul class="primary">
+              <li>
+                <a id="admin_data">いちらん</a>
+                <ul class="sub">
+                  <li><a th:href="@{/admin/data}">データリスト</a></li>
+                  <li><a th:href="@{/admin/data_input}">データ登録</a></li>
+                  <li><a th:href="@{/admin/data_edit}">データ編集</a></li>
+                </ul>
+              </li>
+              <li>
+                <a id="admin_choices">しんだん</a>
+                <ul class="sub">
+                  <li><a th:href="@{/admin/questions}">質問リスト</a></li>
+                  <li><a th:href="@{/admin/q_input}">質問登録</a></li>
+                  <li><a th:href="@{/admin/for_edit_list}">質問編集</a></li>
+                </ul>
+              </li>
+              <li sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="">＊かんり</a>
+                <ul class="sub">
+                  <li><a th:href="@{/logout}">ログアウト</a></li>
+                  <li><a th:href="@{/admin_register}">管理者登録</a></li>
+                  <li><a href="">管理者一覧</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </th:block>
+  </body>
+</html>
